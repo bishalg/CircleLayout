@@ -97,16 +97,36 @@
 
 @implementation Cell
 
-- (id)initWithFrame:(CGRect)frame
-{
+- (void)configForItemSize:(CGFloat)itemSize {
+    self.itemSize = itemSize;
+    [self drawings];
+}
+
+- (id)initWithFrame:(CGRect)frame andItemSize:(CGFloat)itemSize {
+    _itemSize = itemSize;
+    return [self initWithFrame:frame];
+}
+
+- (id)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
     if (self) {
-        self.contentView.layer.cornerRadius = 35.0;
-        self.contentView.layer.borderWidth = 1.0f;
-        self.contentView.layer.borderColor = [UIColor whiteColor].CGColor;
-        self.contentView.backgroundColor = [UIColor underPageBackgroundColor];
+        [self drawings];
     }
     return self;
+}
+
+
+- (void)drawings {
+    self.contentView.layer.cornerRadius = (self.itemSize / 2);
+    self.contentView.layer.borderWidth = 1.0f;
+    self.contentView.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.contentView.backgroundColor = [UIColor colorWithWhite:1 alpha:1.000];
+    
+    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
+    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
+    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
+    UIColor *color = [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+    self.contentView.backgroundColor = color;
 }
 
 @end

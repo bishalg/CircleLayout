@@ -94,8 +94,6 @@
 
 #import "CircleLayout.h"
 
-#define ITEM_SIZE 70
-
 @interface CircleLayout()
 
 // arrays to keep track of insert, delete index paths
@@ -124,7 +122,7 @@
 - (UICollectionViewLayoutAttributes *)layoutAttributesForItemAtIndexPath:(NSIndexPath *)path
 {
     UICollectionViewLayoutAttributes* attributes = [UICollectionViewLayoutAttributes layoutAttributesForCellWithIndexPath:path];
-    attributes.size = CGSizeMake(ITEM_SIZE, ITEM_SIZE);
+    attributes.size = CGSizeMake(self.itemSize, self.itemSize);
     attributes.center = CGPointMake(_center.x + _radius * cosf(2 * path.item * M_PI / _cellCount),
                                     _center.y + _radius * sinf(2 * path.item * M_PI / _cellCount));
     return attributes;
@@ -140,8 +138,7 @@
     return attributes;
 }
 
-- (void)prepareForCollectionViewUpdates:(NSArray *)updateItems
-{
+- (void)prepareForCollectionViewUpdates:(NSArray *)updateItems {
     // Keep track of insert and delete index paths
     [super prepareForCollectionViewUpdates:updateItems];
     
@@ -161,8 +158,7 @@
     }
 }
 
-- (void)finalizeCollectionViewUpdates
-{
+- (void)finalizeCollectionViewUpdates {
     [super finalizeCollectionViewUpdates];
     // release the insert and delete index paths
     self.deleteIndexPaths = nil;
@@ -172,8 +168,7 @@
 // Note: name of method changed
 // Also this gets called for all visible cells (not just the inserted ones) and
 // even gets called when deleting cells!
-- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
-{
+- (UICollectionViewLayoutAttributes *)initialLayoutAttributesForAppearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
     // Must call super
     UICollectionViewLayoutAttributes *attributes = [super initialLayoutAttributesForAppearingItemAtIndexPath:itemIndexPath];
     
@@ -194,8 +189,7 @@
 // Note: name of method changed
 // Also this gets called for all visible cells (not just the deleted ones) and
 // even gets called when inserting cells!
-- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath
-{
+- (UICollectionViewLayoutAttributes *)finalLayoutAttributesForDisappearingItemAtIndexPath:(NSIndexPath *)itemIndexPath {
     // So far, calling super hasn't been strictly necessary here, but leaving it in
     // for good measure
     UICollectionViewLayoutAttributes *attributes = [super finalLayoutAttributesForDisappearingItemAtIndexPath:itemIndexPath];

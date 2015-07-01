@@ -94,52 +94,82 @@
 
 #import "ViewController.h"
 #import "Cell.h"
+#import "CircleLayout.h"
+
+#define kMaxSize 120
+#define kMinSize 80
+#define kSizeConst 4
+
+@interface ViewController ()
+
+@property (strong, nonatomic) CircleLayout *circleLayout;
+
+@end
 
 @implementation ViewController
 
--(void)viewDidLoad
-{
-    self.cellCount = 20;
+- (CGFloat)sizeForCellItem {
+    CGFloat size = (kMaxSize - self.cellCount * kSizeConst);
+    if (size <= kMinSize) {
+        size = kMinSize;
+    }
+    return size;
+}
+
+- (void)viewDidLoad {
+    self.cellCount      = 10;
+    self.circleLayout   = [[CircleLayout alloc] init];
+    self.circleLayout.itemSize = [self sizeForCellItem];
+    self.collectionView.collectionViewLayout = self.circleLayout;
+    
     UITapGestureRecognizer* tapRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
     [self.collectionView addGestureRecognizer:tapRecognizer];
     [self.collectionView registerClass:[Cell class] forCellWithReuseIdentifier:@"MY_CELL"];
     [self.collectionView reloadData];
-    self.collectionView.backgroundColor = [UIColor scrollViewTexturedBackgroundColor];
+    self.collectionView.backgroundColor = [UIColor colorWithRed:1.000 green:1 blue:0.90 alpha:1.000];
 }
 
-- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section;
-{
+- (NSInteger)collectionView:(UICollectionView *)view numberOfItemsInSection:(NSInteger)section; {
     return self.cellCount;
 }
 
-- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath;
-{
-    Cell *cell = [cv dequeueReusableCellWithReuseIdentifier:@"MY_CELL" forIndexPath:indexPath];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath; {
+    Cell *cell =  [cv dequeueReusableCellWithReuseIdentifier:@"MY_CELL" forIndexPath:indexPath];
+    [cell configForItemSize:[self sizeForCellItem]];
     return cell;
 }
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)sender {
-    
-    if (sender.state == UIGestureRecognizerStateEnded)
-    {
+    if (sender.state == UIGestureRecognizerStateEnded) {
         CGPoint initialPinchPoint = [sender locationInView:self.collectionView];
         NSIndexPath* tappedCellPath = [self.collectionView indexPathForItemAtPoint:initialPinchPoint];
-        if (tappedCellPath!=nil)
-        {
+        if (tappedCellPath!=nil) {
             self.cellCount = self.cellCount - 1;
             [self.collectionView performBatchUpdates:^{
                 [self.collectionView deleteItemsAtIndexPaths:[NSArray arrayWithObject:tappedCellPath]];
-                
-            } completion:nil];
-        }
-        else
-        {
+            } completion:^(BOOL finished) {
+                self.circleLayout.itemSize = [self sizeForCellItem];
+                self.collectionView.collectionViewLayout = self.circleLayout;
+                // [self performSelector:@selector(reloadCollectionView) withObject:nil afterDelay:0.2];
+            }];
+        } else {
             self.cellCount = self.cellCount + 1;
             [self.collectionView performBatchUpdates:^{
                 [self.collectionView insertItemsAtIndexPaths:[NSArray arrayWithObject:[NSIndexPath indexPathForItem:0 inSection:0]]];
-            } completion:nil];
+            } completion:^(BOOL finished) {
+                self.circleLayout.itemSize = [self sizeForCellItem];
+                self.collectionView.collectionViewLayout = self.circleLayout;
+                // [self performSelector:@selector(reloadCollectionView) withObject:nil afterDelay:0.2];
+            }];
         }
     }
+    if (self.cellCount <= 5) {
+        [self performSelector:@selector(reloadCollectionView) withObject:nil afterDelay:0.2];
+    }
+}
+
+- (void)reloadCollectionView {
+    [self.collectionView reloadData];
 }
 
 @end

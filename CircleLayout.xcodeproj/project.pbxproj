@@ -17,6 +17,7 @@
 		77AF0097157FA528001EC3FB /* Cell.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AF0094157FA528001EC3FB /* Cell.m */; };
 		77AF0098157FA528001EC3FB /* CircleLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 77AF0096157FA528001EC3FB /* CircleLayout.m */; };
 		77C30BB5157FB7EB005E487B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77C30BB4157FB7EB005E487B /* QuartzCore.framework */; };
+		DDAF56EE1B43F2CB00A35AE1 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DDAF56ED1B43F2CB00A35AE1 /* Images.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 		77AF0095157FA528001EC3FB /* CircleLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleLayout.h; sourceTree = "<group>"; };
 		77AF0096157FA528001EC3FB /* CircleLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleLayout.m; sourceTree = "<group>"; };
 		77C30BB4157FB7EB005E487B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		DDAF56ED1B43F2CB00A35AE1 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 		77AF007D157FA442001EC3FB /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				DDAF56ED1B43F2CB00A35AE1 /* Images.xcassets */,
 				77AF007E157FA442001EC3FB /* CircleLayout-Info.plist */,
 				77AF007F157FA442001EC3FB /* InfoPlist.strings */,
 				77AF0082157FA442001EC3FB /* main.m */,
@@ -163,6 +166,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				77AF0081157FA442001EC3FB /* InfoPlist.strings in Resources */,
+				DDAF56EE1B43F2CB00A35AE1 /* Images.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,10 +249,14 @@
 		77AF0091157FA442001EC3FB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleLayout/CircleLayout-Prefix.pch";
 				INFOPLIST_FILE = "CircleLayout/CircleLayout-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -256,10 +264,14 @@
 		77AF0092157FA442001EC3FB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CircleLayout/CircleLayout-Prefix.pch";
 				INFOPLIST_FILE = "CircleLayout/CircleLayout-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
